@@ -25,9 +25,10 @@ public class DateUtilities {
    
     
     /**
-     * Formats a Date object, given a format string.
+     * Formats a Date object, given a format string consistent with
+     * <code>SimpleDateFormat</code> class.
      * @param date - A Date object to be formatted.
-     * @param format - The desired format.
+     * @param format - The desired format (for <code>SimpleDateFormat</code> class.
      * @return A date formatted as a string.
      */
     public static String formatDate(Date date, String format){
@@ -46,8 +47,10 @@ public class DateUtilities {
     }
     
     /**
-     * Creates a date from a formatted string.
-     * @param formattedString - A formatted date as a string
+     * Creates a date from a formatted string consistent with the <code>
+     * SimpleDateFormat</code> class.
+     * @param formattedString - A formatted date as a string consistent with the
+     * <code>SimpleDateFormat</code> class.
      * @return A Date object created from the date in the formattedString.
      * @throws ParseException 
      */
@@ -66,9 +69,11 @@ public class DateUtilities {
     }
      
     /**
-     * Formats a Calendar object, given a format string.
+     * Formats a Calendar object, given a format string consistent with the <code>
+     * SimpleDateFormat</code> class..
      * @param calendar - A Calendar object to be formatted.
-     * @param format - The desired format.
+     * @param format - The desired format consistent with the <code>
+     * SimpleDateFormat</code> class.
      * @return A date formatted as a string.
      */
     public static String formatDate(Calendar calendar, String format){
@@ -88,8 +93,10 @@ public class DateUtilities {
     }
     
      /**
-     * Creates a date from a formatted string.
-     * @param formattedString - A formatted date as a string
+     * Creates a date from a formatted string consistent with the <code>
+     * SimpleDateFormat</code> class.
+     * @param formattedString - A formatted date as a string consistent with the
+     * <code>impleDateFormat</code> class.
      * @return A Calendar object created from the date in the formattedString.
      * @throws ParseException 
      */
@@ -165,7 +172,7 @@ public class DateUtilities {
     /**
      * Returns the time difference between two calendars in the specified time
      * unit. If the first calendar's date occurs after the second calendar's, 
-     * returns a negative.
+     * returns a negative value.
      * @param cal1 - The first calendar.
      * @param cal2 - The second calendar.
      * @param timeUnit - The <code>TIME_UNIT</code> to return the difference in.
@@ -221,5 +228,64 @@ public class DateUtilities {
        return getDiff(cal1, cal2, timeUnit);
        
     }
+
+    /**
+     * Given a <code>Calendar</code>, adds the given amount of time to the 
+     * calendar. If the given amount of time is negative, it subtracts the time, 
+     * producing a date earlier than the given date.
+     * @param cal - The Calendar to add time to.
+     * @param amount - The amount of time to add, in the time unit specified in
+     * <code>timeUnit</code>.
+     * @param timeUnit - The unit of time to add.
+     * @return A Calendar with the new date/time.
+     */
+    public static Calendar addTime(Calendar cal, int amount, TIME_UNIT timeUnit){
+        if(cal == null){
+            throw new NullPointerException(INVALID_CAL_ERR);
+        } 
+        switch(timeUnit){
+            case MILLIS:
+                cal.setTimeInMillis(cal.getTimeInMillis()+amount);
+                return cal;
+            case SECS:
+                long secondsToAdd = cal.getTimeInMillis() + amount*MILLIS_IN_SEC;
+                cal.setTimeInMillis(secondsToAdd);
+                return cal;
+            case MINS:
+                long minsToAdd = cal.getTimeInMillis()+ amount*MILLIS_IN_MIN;
+                cal.setTimeInMillis(minsToAdd);
+                return cal;
+            case HOURS:
+                long hoursToAdd = cal.getTimeInMillis() + amount*MILLIS_IN_HOUR;
+                cal.setTimeInMillis(hoursToAdd);
+                return cal;
+            case DAYS:
+                long daysToAdd = cal.getTimeInMillis() + amount*MILLIS_IN_DAY;
+                cal.setTimeInMillis(daysToAdd);
+                return cal;
+            default:
+                return null;
+        }
+    }
+    /**
+     * Given a <code>Date</code>, adds the given amount of time to the 
+     * date. If the given amount of time is negative, it subtracts the time, 
+     * producing a date earlier than the given date.
+     * @param date - The <code>Date</code> to add time to.
+     * @param amount - The amount of time to add, in the time unit specified in
+     * <code>timeUnit</code>.
+     * @param timeUnit - The unit of time to add.
+     * @return A <code>Date</code> with the new date/time.
+     */
+    public static Date addTime(Date date, int amount, TIME_UNIT timeUnit){
+        if(date == null){
+            throw new NullPointerException(INVALID_DATE_ERR);
+        }
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        addTime(cal, amount, timeUnit);
+        return cal.getTime();
+    }
+    
 
 }
