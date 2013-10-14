@@ -17,10 +17,10 @@ public class DateUtilities {
     private static String INVALID_CAL_ERR = "Please provide a valid Calendar.";
     private static String STRING_FMT_ERR = "Please provide a valid String.";
     
-    private static final int MILLIS_IN_SEC = 1000;
-    private static final int MILLIS_IN_MIN = MILLIS_IN_SEC*60;
-    private static final int MILLIS_IN_HOUR = MILLIS_IN_MIN*60;
-    private static final int MILLIS_IN_DAY = MILLIS_IN_HOUR*24;
+    private static final long MILLIS_IN_SEC = 1000;
+    private static final long MILLIS_IN_MIN = MILLIS_IN_SEC*60;
+    private static final long MILLIS_IN_HOUR = MILLIS_IN_MIN*60;
+    private static final long MILLIS_IN_DAY = MILLIS_IN_HOUR*24;
     
    
     
@@ -239,7 +239,7 @@ public class DateUtilities {
      * @param timeUnit - The unit of time to add.
      * @return A Calendar with the new date/time.
      */
-    public static Calendar addTime(Calendar cal, int amount, TIME_UNIT timeUnit){
+    public static Calendar addTime(Calendar cal, long amount, TIME_UNIT timeUnit){
         if(cal == null){
             throw new NullPointerException(INVALID_CAL_ERR);
         } 
@@ -277,7 +277,7 @@ public class DateUtilities {
      * @param timeUnit - The unit of time to add.
      * @return A <code>Date</code> with the new date/time.
      */
-    public static Date addTime(Date date, int amount, TIME_UNIT timeUnit){
+    public static Date addTime(Date date, long amount, TIME_UNIT timeUnit){
         if(date == null){
             throw new NullPointerException(INVALID_DATE_ERR);
         }
@@ -286,6 +286,5 @@ public class DateUtilities {
         addTime(cal, amount, timeUnit);
         return cal.getTime();
     }
-    
-
+   
 }
