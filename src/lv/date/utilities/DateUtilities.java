@@ -6,7 +6,8 @@ import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 /**
- *
+ * This class provides common date operations.
+ * 
  * @author Liz Ife Van Deslunt
  */
 public class DateUtilities {
@@ -267,6 +268,7 @@ public class DateUtilities {
                 return null;
         }
     }
+    
     /**
      * Given a <code>Date</code>, adds the given amount of time to the 
      * date. If the given amount of time is negative, it subtracts the time, 
